@@ -1,3 +1,4 @@
 TmplGen/bin/
 TmplGen/obj/
 *.suo
+/packages
