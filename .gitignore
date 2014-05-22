@@ -3,3 +3,4 @@ TmplGen/obj/
 *.suo
 /packages
 *.user
+TmplGen.Services/obj/
