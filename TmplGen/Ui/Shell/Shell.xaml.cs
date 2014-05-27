@@ -1,8 +1,11 @@
 ﻿
 
+using System;
 using System.Windows;
+using System.Windows.Input;
 
 using FirstFloor.ModernUI.Windows.Controls;
+using FirstFloor.ModernUI.Windows.Navigation;
 
 namespace De.BerndNet2000.TmplGen.Ui.Shell {
     /// <summary>

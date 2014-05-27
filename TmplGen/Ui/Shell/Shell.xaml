@@ -4,7 +4,7 @@
                   xmlns:Mui="http://firstfloorsoftware.com/ModernUI"
                   Title="Shell"
                   Height="376"
-                  Width="609">
+                  Width="600">
 
 
     <Mui:ModernWindow.MenuLinkGroups>

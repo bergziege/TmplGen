@@ -20,39 +20,59 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <Label Content="Vorlagenverzeichnis" />
-        <TextBlock Text="{Binding Path=SourceFolder}"
-                   Grid.Row="0"
-                   Grid.Column="1" />
-        <Button Content="Vorlagenverzeichnis ..."
-                Grid.Row="0"
-                Grid.Column="2"
-                Command="{Binding Path=SelectSourceFolderCommand}" />
+        <TextBlock Text="Template erstellen"
+                   Style="{StaticResource Heading1}" Margin="0,10,0,10" Grid.ColumnSpan="3"></TextBlock>
 
-        <Label Content="Templatedatei"
+        <Label Content="Vorlagenverzeichnis"
+               VerticalAlignment="Center"
+               Margin="0,2,0,10"
                Grid.Row="1" />
-        <TextBlock Text="{Binding Path=TargetFilePath}"
+        <TextBlock Text="{Binding Path=SourceFolder}"
                    Grid.Row="1"
-                   Grid.Column="1" />
-        <Button Content="Templatedatei ..."
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Margin="0,2,0,10" />
+        <Button Content="Vorlagenverzeichnis ..."
                 Grid.Row="1"
                 Grid.Column="2"
-                Command="{Binding Path=SelectTemplateTargetFileCommand}" />
+                Command="{Binding Path=SelectSourceFolderCommand}"
+                Margin="5" />
+
+        <Label Content="Templatedatei"
+               Grid.Row="2"
+               VerticalAlignment="Center"
+               Margin="0,10" />
+        <TextBlock Text="{Binding Path=TargetFilePath}"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Margin="0,10" />
+        <Button Content="Templatedatei ..."
+                Grid.Row="2"
+                Grid.Column="2"
+                Command="{Binding Path=SelectTemplateTargetFileCommand}"
+                Margin="5" />
 
         <Label Content="Platzhalter"
-               Grid.Row="2" />
+               Grid.Row="3"
+               VerticalAlignment="Center"
+               Margin="0,8" />
         <TextBox Text="{Binding Path=OldProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="1"
-                 Grid.Row="2" />
+                 Grid.Row="3"
+                 VerticalAlignment="Center"
+                 Margin="5"
+                 Grid.ColumnSpan="2" />
 
         <Button Content="Template erstellen"
                 Command="{Binding Path=CreateTemplateCommand}"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
+                Grid.Column="2"
                 HorizontalAlignment="Right"
-                Grid.Row="3" />
+                Grid.Row="4"
+                Margin="0,20,5,5" />
 
     </Grid>
 </UserControl>
