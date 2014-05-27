@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+
+using Microsoft.SqlServer.Server;
 
 namespace TmplGen.Services {
     /// <summary>
@@ -10,7 +14,7 @@ namespace TmplGen.Services {
         private FileService _fileService;
         private string _currentPath;
         private const string WORKSPACE = "workspace";
-        private const string INTERNAL_PLACEHOLDER = "zzzzzzzzzzzzzzzz";
+        private const string INTERNAL_PLACEHOLDER = "___tmplgen___";
 
         /// <summary>
         /// Ctor.
@@ -35,17 +39,43 @@ namespace TmplGen.Services {
         public void CreateTemplate(string directory, string targetFilePath, string placeholder, Action<string> reportMessage,
                 Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
             /* Verzeichnis nach lokal kopieren */
-            _fileService.CheckCreateDir(Path.Combine(_currentPath, WORKSPACE));
-            _fileService.CopyTree(directory, Path.Combine(_currentPath, WORKSPACE));
+            _fileService.CheckCreateDir(GetWorkspace());
 
-            /* Alle Dateien durchlaufen und Platzhalter suchen/setzen */
-            _fileService.SearchAndReplace(Path.Combine(_currentPath, WORKSPACE), placeholder, INTERNAL_PLACEHOLDER);
+            /* Alle Dateien des Quellverzeichnisses holen */
+            IList<string> files = _fileService.GetFilesFromDirectory(directory);
+
+            /* Alle Quelldateien in ein Dictionary überführen und in diesem die Werte ersetzen.
+             * Es müsste sich also am Ende eine Tabelle mit alten und neuen Pfaden ergeben. */
+            Dictionary<string, string> copyTable = new Dictionary<string, string>();
+            foreach (string sourceFile in files) {
+                string source = sourceFile;
+                if (source.StartsWith(directory)) {
+                    source = sourceFile.Remove(0, directory.Length);
+                }
+                string workspace = GetWorkspace();
+                string replacedPath = source.Replace(placeholder, INTERNAL_PLACEHOLDER);
+                if (replacedPath.StartsWith(Path.DirectorySeparatorChar.ToString())) {
+                    replacedPath = replacedPath.Remove(0, Path.DirectorySeparatorChar.ToString().Length);
+                }
+                string newPath = Path.Combine(workspace, replacedPath);
+                copyTable.Add(sourceFile, newPath);
+            }
+
+            /* Alle Dateien nach der Übersetzung in den Workspace kopieren */
+            _fileService.CopyFiles(copyTable);
+
+            /* Inhalte der Dateien durchsuchen und ersetzen */
+            _fileService.ReplaceInFiles(placeholder, INTERNAL_PLACEHOLDER, copyTable.Select(x=>x.Value).ToList());
 
             /* Kompletten Verzeichnisinhalt packen */
-            _fileService.CompressDirContentTo(directory, targetFilePath);
+            _fileService.CompressDirContentTo(GetWorkspace(), targetFilePath);
 
             /* Lokale daten aufräumen */
-            _fileService.DeleteDir(directory);
+            _fileService.DeleteDir(GetWorkspace());
+        }
+
+        private string GetWorkspace() {
+            return Path.Combine(_currentPath, WORKSPACE);
         }
 
         /// <summary>
