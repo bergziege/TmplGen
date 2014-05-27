@@ -92,14 +92,39 @@ namespace TmplGen.Services {
         public void CreateProject(string templateFilePath, string targetDirectoryPath, string newName,
                 Action<string> reportMessage,
                 Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
-            /* Template nach lokal entpacken */
+            /* Template in Workspace entpacken */
+            _fileService.ExtractToDirectory(templateFilePath, GetWorkspace());
 
-            /* Alle Dateien durchlaufen und Platzhalter mit neuem Namen austauschen.
-             * Wurde kein neuer Name übergeben, den Platzhalter bestehen lassen */
+            /* Alle Dateien holen */
+            IList<string> files = _fileService.GetFilesFromDirectory(GetWorkspace());
+
+            /* Inhalte der Dateien durchsuchen und ersetzen */
+            _fileService.ReplaceInFiles(INTERNAL_PLACEHOLDER, newName, files);
+
+            /* CopyTable erstellen */
+            Dictionary<string, string> copyTable = new Dictionary<string, string>();
+            foreach (string templateFile in files) {
+                string template = templateFile;
+                if (template.StartsWith(GetWorkspace())) {
+                    template = templateFile.Remove(0, GetWorkspace().Length);
+                }
+
+
+                string replacedPath = template.Replace(INTERNAL_PLACEHOLDER, newName);
+
+                if (replacedPath.StartsWith(Path.DirectorySeparatorChar.ToString())) {
+                    replacedPath = replacedPath.Remove(0, Path.DirectorySeparatorChar.ToString().Length);
+                }
+
+                string newPath = Path.Combine(targetDirectoryPath, replacedPath);
+                copyTable.Add(templateFile, newPath);
+            }
 
             /* Alle lokalen Dateien und Zielpfad kopieren */
+            _fileService.CopyFiles(copyTable);
 
             /* Lokale Dateien löschen */
+            _fileService.DeleteDir(GetWorkspace());
         }
     }
 }

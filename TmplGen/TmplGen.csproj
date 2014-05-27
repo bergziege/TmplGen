@@ -39,6 +39,9 @@
     <Reference Include="FirstFloor.ModernUI">
       <HintPath>..\packages\ModernUI.WPF.1.0.5\lib\net45\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
+    <Reference Include="Ookii.Dialogs.Wpf">
+      <HintPath>..\packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="ReactiveUI">
       <HintPath>..\packages\reactiveui-core.5.5.1\lib\Portable-Net45+WinRT45+WP8\ReactiveUI.dll</HintPath>
     </Reference>
@@ -86,10 +89,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Ui\CreateProjectPage\CreateProjectPage.xaml.cs">
+      <DependentUpon>CreateProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\CreateProjectPage\ICreateProjectPageViewModel.cs" />
+    <Compile Include="Ui\CreateProjectPage\ViewModels\CreateProjectPageDesignViewModel.cs" />
+    <Compile Include="Ui\CreateProjectPage\ViewModels\CreateProjectPageViewModel.cs" />
+    <Compile Include="Ui\CreateTemplatePage\CreateTemplatePage.xaml.cs">
+      <DependentUpon>CreateTemplatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\CreateTemplatePage\ICreateTemplatePageViewModel.cs" />
+    <Compile Include="Ui\CreateTemplatePage\ViewModels\CreateTemplatePageDesignViewModel.cs" />
+    <Compile Include="Ui\CreateTemplatePage\ViewModels\CreateTemplatePageViewModel.cs" />
     <Compile Include="Ui\Shell\IShellViewModel.cs" />
     <Compile Include="Ui\Shell\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\Shell\ViewModels\ShellDesignViewModel.cs" />
     <Compile Include="Ui\Shell\ViewModels\ShellViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -124,11 +140,24 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TmplGen.Services\TmplGen.Services.csproj">
+      <Project>{25129672-337F-491D-8BED-2434FACC9931}</Project>
+      <Name>TmplGen.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\CreateProjectPage\CreateProjectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\CreateTemplatePage\CreateTemplatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Shell\Shell.xaml">
       <SubType>Designer</SubType>

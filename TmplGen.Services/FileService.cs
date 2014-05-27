@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 
+using Ionic.Zip;
+
 using Microsoft.SqlServer.Server;
 
 namespace TmplGen.Services {
@@ -75,6 +77,20 @@ namespace TmplGen.Services {
                 string text = File.ReadAllText(file);
                 text = text.Replace(placeholder,internalPlaceholder);
                 File.WriteAllText(file, text);
+            }
+        }
+
+        /// <summary>
+        /// Entpackt die übergebene ZIP in das angegebene Verzeichnis.
+        /// </summary>
+        /// <param name="templateFilePath"></param>
+        /// <param name="workspace"></param>
+        public void ExtractToDirectory(string templateFilePath, string workspace) {
+            if (!Directory.Exists(workspace)) {
+                Directory.CreateDirectory(workspace);
+            }
+            using (var zip = ZipFile.Read(templateFilePath)) {
+                zip.ExtractAll(workspace);
             }
         }
     }
