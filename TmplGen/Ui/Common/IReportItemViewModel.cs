@@ -13,5 +13,10 @@ namespace De.BerndNet2000.TmplGen.Ui.Common {
         ///     Status dieses Items
         /// </summary>
         ReportItemStatus Status { get; set; }
+
+        /// <summary>
+        /// Liefert ob es sich um einen Error handelt.
+        /// </summary>
+        bool IsError { get; }
     }
 }

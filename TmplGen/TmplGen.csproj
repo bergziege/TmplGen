@@ -89,6 +89,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converter\BooleanNegationToVisibilityConverter.cs" />
     <Compile Include="Ui\Common\Enums\ReportItemStatus.cs" />
     <Compile Include="Ui\Common\IReportingBaseViewModel.cs" />
     <Compile Include="Ui\Common\IReportItemViewModel.cs" />
@@ -170,6 +171,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
