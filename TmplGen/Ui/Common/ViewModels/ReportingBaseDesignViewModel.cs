@@ -22,5 +22,11 @@ namespace De.BerndNet2000.TmplGen.Ui.Common.ViewModels {
             }
             set { this.RaiseAndSetIfChanged(ref _reportItems, value); }
         }
+
+        public void ReportError(string error) {
+        }
+
+        public void ReportMessage(string message) {
+        }
     }
 }

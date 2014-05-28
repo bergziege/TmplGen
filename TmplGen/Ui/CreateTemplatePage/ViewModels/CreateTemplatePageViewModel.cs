@@ -84,7 +84,7 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
         }
 
         private void CreateTemplate(object param) {
-            _templatingService.CreateTemplate(SourceFolder, TargetFilePath, OldProjectName, null, null, null, null);
+            _templatingService.CreateTemplate(SourceFolder, TargetFilePath, OldProjectName, ReportMessage, null, null, ReportError);
         }
 
         private void SelectSourceFolder(object param) {

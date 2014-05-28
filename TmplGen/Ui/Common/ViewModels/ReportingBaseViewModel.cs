@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 
+using De.BerndNet2000.TmplGen.Ui.Common.Enums;
+
 using ReactiveUI;
 
 namespace De.BerndNet2000.TmplGen.Ui.Common.ViewModels {
@@ -12,6 +14,22 @@ namespace De.BerndNet2000.TmplGen.Ui.Common.ViewModels {
         public ObservableCollection<IReportItemViewModel> ReportItems {
             get { return _reportItems; }
             set { this.RaiseAndSetIfChanged(ref _reportItems, value); }
+        }
+
+        /// <summary>
+        ///     Fügt einen Fehler zur den Report Items hinzu.
+        /// </summary>
+        /// <param name="error"></param>
+        public void ReportError(string error) {
+            ReportItems.Add(new ReportItemViewModel { Message = error, Status = ReportItemStatus.Error });
+        }
+
+        /// <summary>
+        ///     Fügt eine Info zur den Report Items hinzu.
+        /// </summary>
+        /// <param name="message"></param>
+        public void ReportMessage(string message) {
+            ReportItems.Add(new ReportItemViewModel { Message = message, Status = ReportItemStatus.Information });
         }
     }
 }

@@ -85,10 +85,10 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
             _templatingService.CreateProject(TemplateSourceFile,
                     ProjectTargetFolder,
                     NewProjectName,
+                    ReportMessage,
                     null,
                     null,
-                    null,
-                    null);
+                    ReportError);
         }
 
         private void SelectProjectTargetFolder(object param) {
