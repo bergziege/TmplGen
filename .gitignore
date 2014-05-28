@@ -1,3 +1,9 @@
 TmplGen/bin/
 TmplGen/obj/
 *.suo
+/packages
+*.user
+TmplGen.Services/obj/
+/TmplGen.Services/bin/Debug
+/TmplGen.Services.Test/bin/Debug
+/TmplGen.Services.Test/obj/Debug

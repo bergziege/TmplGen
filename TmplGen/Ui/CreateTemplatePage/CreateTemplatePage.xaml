@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.CreateTemplatePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ViewModels="clr-namespace:De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels"
+             mc:Ignorable="d">
+    <d:DesignProperties.DataContext>
+        <ViewModels:CreateTemplatePageDesignViewModel />
+    </d:DesignProperties.DataContext>
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition MinWidth="200"
+                              Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Template erstellen"
+                   Style="{StaticResource Heading1}" Margin="0,10,0,10" Grid.ColumnSpan="3"></TextBlock>
+
+        <Label Content="Vorlagenverzeichnis"
+               VerticalAlignment="Center"
+               Margin="0,2,0,10"
+               Grid.Row="1" />
+        <TextBlock Text="{Binding Path=SourceFolder}"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Margin="0,2,0,10" />
+        <Button Content="Vorlagenverzeichnis ..."
+                Grid.Row="1"
+                Grid.Column="2"
+                Command="{Binding Path=SelectSourceFolderCommand}"
+                Margin="5" />
+
+        <Label Content="Templatedatei"
+               Grid.Row="2"
+               VerticalAlignment="Center"
+               Margin="0,10" />
+        <TextBlock Text="{Binding Path=TargetFilePath}"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Margin="0,10" />
+        <Button Content="Templatedatei ..."
+                Grid.Row="2"
+                Grid.Column="2"
+                Command="{Binding Path=SelectTemplateTargetFileCommand}"
+                Margin="5" />
+
+        <Label Content="Platzhalter"
+               Grid.Row="3"
+               VerticalAlignment="Center"
+               Margin="0,8" />
+        <TextBox Text="{Binding Path=OldProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="1"
+                 Grid.Row="3"
+                 VerticalAlignment="Center"
+                 Margin="5"
+                 Grid.ColumnSpan="2" />
+
+        <Button Content="Template erstellen"
+                Command="{Binding Path=CreateTemplateCommand}"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                Grid.Row="4"
+                Margin="0,20,5,5" />
+
+    </Grid>
+</UserControl>

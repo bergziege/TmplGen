@@ -13,13 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TmplGen {
+using De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels;
+
+namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaction logic for CreateTemplatePage.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class CreateTemplatePage : UserControl {
+        /// <summary>
+        /// Ctor.
+        /// </summary>
+        public CreateTemplatePage() {
             InitializeComponent();
+            if (DataContext == null) {
+                DataContext = new CreateTemplatePageViewModel();
+            }
         }
     }
 }

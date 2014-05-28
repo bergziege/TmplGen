@@ -1,0 +1,21 @@
+﻿<Mui:ModernWindow x:Class="De.BerndNet2000.TmplGen.Ui.Shell.Shell"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:Mui="http://firstfloorsoftware.com/ModernUI"
+                  Title="Shell"
+                  Height="376"
+                  Width="600">
+
+
+    <Mui:ModernWindow.MenuLinkGroups>
+        <Mui:LinkGroup DisplayName="Templating">
+            <Mui:LinkGroup.Links>
+                <Mui:Link DisplayName="Projekt -> Template"
+                          Source="/Ui\CreateTemplatePage\CreateTemplatePage.xaml" />
+                <Mui:Link DisplayName="Template -> Projekt"
+                          Source="/Ui\CreateProjectPage\CreateProjectPage.xaml" />
+            </Mui:LinkGroup.Links>
+        </Mui:LinkGroup>
+    </Mui:ModernWindow.MenuLinkGroups>
+
+</Mui:ModernWindow>
