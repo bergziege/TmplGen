@@ -1,4 +1,9 @@
-﻿using FirstFloor.ModernUI.Presentation;
+﻿using System.Collections.ObjectModel;
+
+using De.BerndNet2000.TmplGen.Ui.Common;
+using De.BerndNet2000.TmplGen.Ui.Common.ViewModels;
+
+using FirstFloor.ModernUI.Presentation;
 
 using Ookii.Dialogs.Wpf;
 
@@ -9,7 +14,7 @@ using TmplGen.Services;
 namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
     /// <summary>
     /// </summary>
-    public class CreateTemplatePageViewModel : ReactiveObject, ICreateTemplatePageViewModel {
+    public class CreateTemplatePageViewModel : ReportingBaseViewModel, ICreateTemplatePageViewModel {
         private RelayCommand _createTemplateCommand;
         private string _oldProjectName;
         private RelayCommand _selectSourceFolderCommand;
@@ -18,6 +23,7 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
         private string _sourceFolder;
         private string _targetFilePath;
         private TemplatingService _templatingService;
+        private ObservableCollection<IReportItemViewModel> _reportItems;
 
         /// <summary>
         /// Ctor.
@@ -96,5 +102,6 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
                 TargetFilePath = saveFile.FileName;
             }
         }
+
     }
 }

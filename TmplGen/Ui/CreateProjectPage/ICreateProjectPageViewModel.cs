@@ -1,10 +1,12 @@
-﻿using FirstFloor.ModernUI.Presentation;
+﻿using De.BerndNet2000.TmplGen.Ui.Common;
+
+using FirstFloor.ModernUI.Presentation;
 
 namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage {
     /// <summary>
     /// 
     /// </summary>
-    public interface ICreateProjectPageViewModel {
+    public interface ICreateProjectPageViewModel: IReportingBaseViewModel {
         /// <summary>
         /// 
         /// </summary>

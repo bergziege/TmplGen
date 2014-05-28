@@ -4,78 +4,94 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ViewModels1="clr-namespace:De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels"
+             xmlns:common="clr-namespace:De.BerndNet2000.TmplGen.Ui.Common"
              mc:Ignorable="d">
     <d:DesignProperties.DataContext>
         <ViewModels1:CreateProjectPageDesignViewModel />
     </d:DesignProperties.DataContext>
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition MinWidth="200"
-                              Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition MinWidth="200"
+                                  Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="Projekt erstellen"
-                   Style="{StaticResource Heading1}"
-                   Margin="0,10,0,10"
-                   Grid.ColumnSpan="3"></TextBlock>
+            <TextBlock Text="Projekt erstellen"
+                       Style="{StaticResource Heading1}"
+                       Margin="0,10,0,10"
+                       Grid.ColumnSpan="3"></TextBlock>
 
-        <Label Content="Templatedatei"
-               VerticalAlignment="Center"
-               Margin="0,1,0,10"
-               Grid.Row="1" />
-        <TextBlock Text="{Binding Path=TemplateSourceFile}"
-                   Grid.Row="1"
-                   Grid.Column="1"
+            <Label Content="Templatedatei"
                    VerticalAlignment="Center"
-                   Margin="0,1,0,10" />
-        <Button Content="Template ..."
-                Grid.Row="1"
-                Grid.Column="2"
-                Command="{Binding Path=SelectTemplateSourceFileCommand}"
-                Margin="5"
-                 />
+                   Margin="0,1,0,10"
+                   Grid.Row="1" />
+            <TextBlock Text="{Binding Path=TemplateSourceFile}"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Margin="0,1,0,10" />
+            <Button Content="Template ..."
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Command="{Binding Path=SelectTemplateSourceFileCommand}"
+                    Margin="5" />
 
-        <Label Content="Projektverzeichnis"
-               Grid.Row="2"
-               VerticalAlignment="Center"
-               Margin="0,10" />
-        <TextBlock Text="{Binding Path=ProjectTargetFolder}"
+            <Label Content="Projektverzeichnis"
                    Grid.Row="2"
-                   Grid.Column="1"
                    VerticalAlignment="Center"
                    Margin="0,10" />
-        <Button Content="Projektverzeichnis ..."
-                Grid.Row="2"
-                Grid.Column="2"
-                Command="{Binding Path=SelectProjectTargetFolderCommand}"
-                Margin="5" />
+            <TextBlock Text="{Binding Path=ProjectTargetFolder}"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Margin="0,10" />
+            <Button Content="Projektverzeichnis ..."
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Command="{Binding Path=SelectProjectTargetFolderCommand}"
+                    Margin="5" />
 
-        <Label Content="Platzhalter"
-               Grid.Row="3"
-               VerticalAlignment="Center"
-               Margin="0,8" />
-        <TextBox Text="{Binding Path=NewProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Column="1"
-                 Grid.Row="3"
-                 Margin="5"
-                 VerticalAlignment="Center"
-                 Grid.ColumnSpan="2" />
+            <Label Content="Platzhalter"
+                   Grid.Row="3"
+                   VerticalAlignment="Center"
+                   Margin="0,8" />
+            <TextBox Text="{Binding Path=NewProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Margin="5"
+                     VerticalAlignment="Center"
+                     Grid.ColumnSpan="2" />
 
-        <Button Content="Projekt erstellen"
-                Command="{Binding Path=CreateProjectCommand}"
-                Grid.Column="2"
-                HorizontalAlignment="Right"
-                Grid.Row="4"
-                Margin="0,20,5,5" />
-
+            <Button Content="Projekt erstellen"
+                    Command="{Binding Path=CreateProjectCommand}"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    Grid.Row="4"
+                    Margin="0,20,5,5" />
+        </Grid>
+        <ListBox Grid.Column="1"
+                 ItemsSource="{Binding Path=ReportItems}"
+                 Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="common:IReportItemViewModel">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Path=Message}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

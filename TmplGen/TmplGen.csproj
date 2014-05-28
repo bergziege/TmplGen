@@ -93,6 +93,7 @@
     <Compile Include="Ui\Common\IReportingBaseViewModel.cs" />
     <Compile Include="Ui\Common\IReportItemViewModel.cs" />
     <Compile Include="Ui\Common\ViewModels\ReportingBaseDesignViewModel.cs" />
+    <Compile Include="Ui\Common\ViewModels\ReportingBaseViewModel.cs" />
     <Compile Include="Ui\Common\ViewModels\ReportItemViewModel.cs" />
     <Compile Include="Ui\CreateProjectPage\CreateProjectPage.xaml.cs">
       <DependentUpon>CreateProjectPage.xaml</DependentUpon>

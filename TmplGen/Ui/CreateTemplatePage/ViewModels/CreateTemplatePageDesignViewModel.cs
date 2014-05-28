@@ -1,4 +1,6 @@
-﻿using FirstFloor.ModernUI.Presentation;
+﻿using De.BerndNet2000.TmplGen.Ui.Common.ViewModels;
+
+using FirstFloor.ModernUI.Presentation;
 
 using ReactiveUI;
 
@@ -6,7 +8,7 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
     /// <summary>
     /// 
     /// </summary>
-    public class CreateTemplatePageDesignViewModel: ReactiveObject, ICreateTemplatePageViewModel {
+    public class CreateTemplatePageDesignViewModel: ReportingBaseDesignViewModel, ICreateTemplatePageViewModel {
         /// <summary>
         /// 
         /// </summary>

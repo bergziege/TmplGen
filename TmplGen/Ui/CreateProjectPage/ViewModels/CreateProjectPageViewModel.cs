@@ -1,4 +1,6 @@
-﻿using FirstFloor.ModernUI.Presentation;
+﻿using De.BerndNet2000.TmplGen.Ui.Common.ViewModels;
+
+using FirstFloor.ModernUI.Presentation;
 
 using Ookii.Dialogs.Wpf;
 
@@ -9,14 +11,14 @@ using TmplGen.Services;
 namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
     /// <summary>
     /// </summary>
-    public class CreateProjectPageViewModel : ReactiveObject, ICreateProjectPageViewModel {
+    public class CreateProjectPageViewModel : ReportingBaseViewModel, ICreateProjectPageViewModel {
+        private readonly TemplatingService _templatingService;
         private RelayCommand _createProjectCommand;
         private string _newProjectName;
         private string _projectTargetFolder;
         private RelayCommand _selectProjectTargetFolderCommand;
         private RelayCommand _selectTemplateSourceFileCommand;
         private string _templateSourceFile;
-        private TemplatingService _templatingService;
 
         /// <summary>
         /// </summary>
@@ -37,14 +39,12 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public string NewProjectName {
             get { return _newProjectName; }
             set { this.RaiseAndSetIfChanged(ref _newProjectName, value); }
         }
         /// <summary>
-        /// 
         /// </summary>
         public string ProjectTargetFolder {
             get { return _projectTargetFolder; }
@@ -75,7 +75,6 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         public string TemplateSourceFile {
             get { return _templateSourceFile; }
@@ -83,7 +82,13 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
         }
 
         private void CreateProject(object param) {
-            _templatingService.CreateProject(TemplateSourceFile, ProjectTargetFolder, NewProjectName, null, null, null,null);
+            _templatingService.CreateProject(TemplateSourceFile,
+                    ProjectTargetFolder,
+                    NewProjectName,
+                    null,
+                    null,
+                    null,
+                    null);
         }
 
         private void SelectProjectTargetFolder(object param) {
