@@ -3,7 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:Mui="http://firstfloorsoftware.com/ModernUI"
                   Title="Shell"
-                  Height="376"
+                  Height="600"
                   Width="600">
 
 
