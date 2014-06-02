@@ -6,7 +6,7 @@ namespace TmplGen.Services.Test {
         [TestMethod]
         public void TestTemplify() {
             TemplatingService service = new TemplatingService();
-            service.CreateTemplate("./Testdata",
+            service.CreateTemplateAsync("./Testdata",
                     "./template.zip",
                     "MyProject",
                     ReportMessage,
