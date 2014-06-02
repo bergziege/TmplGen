@@ -7,6 +7,7 @@ using Ookii.Dialogs.Wpf;
 using ReactiveUI;
 
 using TmplGen.Services;
+using TmplGen.Services.Helper;
 
 namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
     /// <summary>
@@ -31,7 +32,7 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
         public RelayCommand CreateProjectCommand {
             get {
                 if (_createProjectCommand == null) {
-                    _createProjectCommand = new RelayCommand(CreateProject);
+                    _createProjectCommand = new RelayCommand(CreateProject, CanCreateProject);
                 }
 
                 return _createProjectCommand;
@@ -81,14 +82,21 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
             set { this.RaiseAndSetIfChanged(ref _templateSourceFile, value); }
         }
 
-        private void CreateProject(object param) {
-            _templatingService.CreateProject(TemplateSourceFile,
+        private bool CanCreateProject(object arg) {
+            return !string.IsNullOrWhiteSpace(NewProjectName) && !string.IsNullOrWhiteSpace(ProjectTargetFolder)
+                   && !string.IsNullOrWhiteSpace(TemplateSourceFile) && !IsProcessing;
+        }
+
+        private async void CreateProject(object param) {
+            IsProcessing = true;
+            await TaskHelper.ToTask(() => _templatingService.CreateProjectAsync(TemplateSourceFile,
                     ProjectTargetFolder,
                     NewProjectName,
                     ReportMessage,
                     null,
                     null,
-                    ReportError);
+                    ReportError));
+            IsProcessing = false;
         }
 
         private void SelectProjectTargetFolder(object param) {

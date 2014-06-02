@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+
+using TmplGen.Services.Helper;
 
 namespace TmplGen.Services {
     /// <summary>
@@ -36,21 +39,21 @@ namespace TmplGen.Services {
         /// <param name="reportOverallItems">Aktion zur Ausgabe der Gesamtschritte des Prozesses</param>
         /// <param name="reportItemsDone">Aktion zur Ausgabe der abgeschlossenen Schritte des Prozesses</param>
         /// <param name="reportError">Aktion um Fehler auszugeben</param>
-        public void CreateProject(string templateFilePath, string targetDirectoryPath, string newName,
+        public async void CreateProjectAsync(string templateFilePath, string targetDirectoryPath, string newName,
                 Action<string> reportMessage,
                 Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
             try {
                 /* Template in Workspace entpacken */
                 reportMessage.Invoke("Zip in Workspace entpacken");
-                _fileService.ExtractToDirectory(templateFilePath, GetWorkspace());
+                await TaskHelper.ToTask(() => _fileService.ExtractToDirectory(templateFilePath, GetWorkspace()));
 
                 /* Alle Dateien holen */
                 reportMessage.Invoke("Alle entpackten Dateien analysieren");
-                IList<string> files = _fileService.GetFilesFromDirectory(GetWorkspace());
+                IList<string> files = await TaskHelper.ToTask(() => _fileService.GetFilesFromDirectory(GetWorkspace()));
 
                 /* Inhalte der Dateien durchsuchen und ersetzen */
                 reportMessage.Invoke("Inhalte durchsuchen und ersetzen");
-                _fileService.ReplaceInFiles(INTERNAL_PLACEHOLDER, newName, files);
+                await TaskHelper.ToTask(() => _fileService.ReplaceInFiles(INTERNAL_PLACEHOLDER, newName, files));
 
                 /* CopyTable erstellen */
                 reportMessage.Invoke("Neue Zielpfade erzeugen");
@@ -73,11 +76,11 @@ namespace TmplGen.Services {
 
                 /* Alle lokalen Dateien und Zielpfad kopieren */
                 reportMessage.Invoke("Dateien in Zielpfade kopieren");
-                _fileService.CopyFiles(copyTable);
+                await TaskHelper.ToTask(() => _fileService.CopyFiles(copyTable));
 
                 /* Lokale Dateien löschen */
                 reportMessage.Invoke("Workspace aufräumen");
-                _fileService.DeleteDir(GetWorkspace());
+                await TaskHelper.ToTask(() => _fileService.DeleteDir(GetWorkspace()));
             } catch (Exception ex) {
                 reportError.Invoke("Fehler: " + ex.Message + Environment.NewLine
                                    + "Workspace bleibt zur Fehleranalyse bestehen");
@@ -96,17 +99,17 @@ namespace TmplGen.Services {
         /// <param name="reportOverallItems">Aktion zur Ausgabe der Gesamtschritte des Prozesses</param>
         /// <param name="reportItemsDone">Aktion zur Ausgabe der abgeschlossenen Schritte des Prozesses</param>
         /// <param name="reportError">Aktion um Fehler auszugeben</param>
-        public void CreateTemplate(string directory, string targetFilePath, string placeholder,
+        public async void CreateTemplateAsync(string directory, string targetFilePath, string placeholder,
                 Action<string> reportMessage,
                 Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
             try {
                 /* Workspace anlegen */
                 reportMessage.Invoke("Workspace anlegen");
-                _fileService.CheckCreateDir(GetWorkspace());
+                await TaskHelper.ToTask(() => _fileService.CheckCreateDir(GetWorkspace()));
 
                 /* Alle Dateien des Quellverzeichnisses holen */
                 reportMessage.Invoke("Alle Dateien des Quellverzeichnisses lesen");
-                IList<string> files = _fileService.GetFilesFromDirectory(directory);
+                IList<string> files = await TaskHelper.ToTask(() => _fileService.GetFilesFromDirectory(directory));
 
                 /* Alle Quelldateien in ein Dictionary überführen und in diesem die Werte ersetzen.
                          * Es müsste sich also am Ende eine Tabelle mit alten und neuen Pfaden ergeben. */
@@ -128,19 +131,19 @@ namespace TmplGen.Services {
 
                 /* Alle Dateien nach der Übersetzung in den Workspace kopieren */
                 reportMessage.Invoke("Dateien nach neuen Pfaden in Workspace kopieren");
-                _fileService.CopyFiles(copyTable);
+                await TaskHelper.ToTask(() => _fileService.CopyFiles(copyTable));
 
                 /* Inhalte der Dateien durchsuchen und ersetzen */
                 reportMessage.Invoke("In Dateininhalten suchenund ersetzen");
-                _fileService.ReplaceInFiles(placeholder, INTERNAL_PLACEHOLDER, copyTable.Select(x => x.Value).ToList());
+                await TaskHelper.ToTask(() => _fileService.ReplaceInFiles(placeholder, INTERNAL_PLACEHOLDER, copyTable.Select(x => x.Value).ToList()));
 
                 /* Kompletten Verzeichnisinhalt packen */
                 reportMessage.Invoke("Workspace packen und abspeichern");
-                _fileService.CompressDirContentTo(GetWorkspace(), targetFilePath);
+                await TaskHelper.ToTask(() => _fileService.CompressDirContentTo(GetWorkspace(), targetFilePath));
 
                 /* Lokale daten aufräumen */
                 reportMessage.Invoke("Workspace aufräumen");
-                _fileService.DeleteDir(GetWorkspace());
+                await TaskHelper.ToTask(() => _fileService.DeleteDir(GetWorkspace()));
             } catch (Exception ex) {
                 reportError.Invoke("Fehler: " + ex.Message + Environment.NewLine
                                    + "Workspace bleibt zur Fehleranalyse bestehen");

@@ -10,11 +10,13 @@ using Ookii.Dialogs.Wpf;
 using ReactiveUI;
 
 using TmplGen.Services;
+using TmplGen.Services.Helper;
 
 namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
     /// <summary>
     /// </summary>
     public class CreateTemplatePageViewModel : ReportingBaseViewModel, ICreateTemplatePageViewModel {
+        private readonly TemplatingService _templatingService;
         private RelayCommand _createTemplateCommand;
         private string _oldProjectName;
         private RelayCommand _selectSourceFolderCommand;
@@ -22,11 +24,9 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
         private RelayCommand _selectTemplateTargetFileCommand;
         private string _sourceFolder;
         private string _targetFilePath;
-        private TemplatingService _templatingService;
-        private ObservableCollection<IReportItemViewModel> _reportItems;
 
         /// <summary>
-        /// Ctor.
+        ///     Ctor.
         /// </summary>
         public CreateTemplatePageViewModel() {
             _templatingService = new TemplatingService();
@@ -37,12 +37,15 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
         public RelayCommand CreateTemplateCommand {
             get {
                 if (_createTemplateCommand == null) {
-                    _createTemplateCommand = new RelayCommand(CreateTemplate);
+                    _createTemplateCommand = new RelayCommand(CreateTemplate, CanCreateTemplate);
                 }
 
                 return _createTemplateCommand;
             }
         }
+
+        /// <summary>
+        /// </summary>
         public string OldProjectName {
             get { return _oldProjectName; }
             set { this.RaiseAndSetIfChanged(ref _oldProjectName, value); }
@@ -83,8 +86,21 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
             set { this.RaiseAndSetIfChanged(ref _targetFilePath, value); }
         }
 
-        private void CreateTemplate(object param) {
-            _templatingService.CreateTemplate(SourceFolder, TargetFilePath, OldProjectName, ReportMessage, null, null, ReportError);
+        private bool CanCreateTemplate(object arg) {
+            return !string.IsNullOrWhiteSpace(SourceFolder) && !string.IsNullOrWhiteSpace(TargetFilePath)
+                   && !string.IsNullOrWhiteSpace(OldProjectName) && !IsProcessing;
+        }
+
+        private async void CreateTemplate(object param) {
+            IsProcessing = true;
+            await TaskHelper.ToTask(() => _templatingService.CreateTemplateAsync(SourceFolder,
+                    TargetFilePath,
+                    OldProjectName,
+                    ReportMessage,
+                    null,
+                    null,
+                    ReportError));
+            IsProcessing = false;
         }
 
         private void SelectSourceFolder(object param) {
@@ -102,6 +118,5 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
                 TargetFilePath = saveFile.FileName;
             }
         }
-
     }
 }

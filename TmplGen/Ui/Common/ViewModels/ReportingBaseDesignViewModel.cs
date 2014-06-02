@@ -10,6 +10,13 @@ namespace De.BerndNet2000.TmplGen.Ui.Common.ViewModels {
     /// </summary>
     public class ReportingBaseDesignViewModel : ReactiveObject, IReportingBaseViewModel {
         private ObservableCollection<IReportItemViewModel> _reportItems;
+        private bool _isProcessing;
+
+        public bool IsProcessing {
+            get { return true; }
+            set { _isProcessing = value; }
+        }
+
         /// <summary>
         ///     Liefert oder setzt die Liste an Reportitems.
         /// </summary>
