@@ -13,3 +13,8 @@ Takes a folder with files/sub folders as input, searches these files/sub folders
 ## Use a template
 
 Takes a previously created template file, copies its content to a given location and replaces the previously gives place holder with a given text.
+
+## Uses
+
+https://mui.codeplex.com/
+http://modernuiicons.com/
