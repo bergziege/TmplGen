@@ -1,0 +1,7 @@
+TmplGen.Services.Test/
+TmplGen.Services/
+TmplGen/
+packages/
+TmplGen.sln.DotSettings.user
+TmplGen.suo
+TmplGen.v12.suo
