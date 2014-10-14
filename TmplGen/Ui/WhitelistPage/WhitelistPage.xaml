@@ -1,15 +1,44 @@
 ﻿<UserControl x:Class="De.BerndNet2000.TmplGen.Ui.WhitelistPage.WhitelistPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:De.BerndNet2000.TmplGen.Ui.WhitelistPage.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
     <d:DesignProperties.DataContext>
-        <viewModels:WhitelistDesignViewModel/>
+        <viewModels:WhitelistDesignViewModel />
     </d:DesignProperties.DataContext>
-    <Grid>
-            
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Whitelist"
+                   Style="{StaticResource Heading1}"
+                   Margin="0,10,0,10" />
+
+        <ListBox ItemsSource="{Binding Path=Extensions}"
+                 Grid.Row="1"
+                 SelectedItem="{Binding Path=SelectedExtension}"
+                 Margin="3" />
+
+        <Button Content="Entfernen"
+                Grid.Row="2"
+                Command="{Binding Path=RemoveExtensionCommand}"
+                Margin="3,3,3,10" />
+
+        <TextBox Grid.Row="3"
+                 Text="{Binding Path=ExtensionInput}"
+                 Margin="3" />
+
+        <Button Content="Hinzufügen"
+                Grid.Row="4"
+                Command="{Binding Path=AddNewExtensionCommand}"
+                Margin="3" />
     </Grid>
 </UserControl>
