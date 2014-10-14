@@ -115,6 +115,11 @@
     </Compile>
     <Compile Include="Ui\Shell\ViewModels\ShellDesignViewModel.cs" />
     <Compile Include="Ui\Shell\ViewModels\ShellViewModel.cs" />
+    <Compile Include="Ui\WhitelistPage\IWhitelistPageViewModel.cs" />
+    <Compile Include="Ui\WhitelistPage\ViewModels\WhitelistDesignViewModel.cs" />
+    <Compile Include="Ui\WhitelistPage\WhitelistPage.xaml.cs">
+      <DependentUpon>WhitelistPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -168,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Shell\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\WhitelistPage\WhitelistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
