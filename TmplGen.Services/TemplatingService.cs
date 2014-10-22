@@ -35,13 +35,12 @@ namespace TmplGen.Services {
         ///     Wert, der anstelle des Platzhalters verwendet werden soll. Wird ein leerer Wert übergeben, wird
         ///     der Platzhalter nicht ersetzt.
         /// </param>
+        /// <param name="extensions"></param>
         /// <param name="reportMessage">Aktion zur Ausgabe einer Nachricht (keine Fehlerausgabe)</param>
         /// <param name="reportOverallItems">Aktion zur Ausgabe der Gesamtschritte des Prozesses</param>
         /// <param name="reportItemsDone">Aktion zur Ausgabe der abgeschlossenen Schritte des Prozesses</param>
         /// <param name="reportError">Aktion um Fehler auszugeben</param>
-        public async void CreateProjectAsync(string templateFilePath, string targetDirectoryPath, string newName,
-                Action<string> reportMessage,
-                Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
+        public async void CreateProjectAsync(string templateFilePath, string targetDirectoryPath, string newName, IList<string> extensions, Action<string> reportMessage, Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
             try {
                 /* Template in Workspace entpacken */
                 reportMessage.Invoke("Zip in Workspace entpacken");
@@ -53,7 +52,7 @@ namespace TmplGen.Services {
 
                 /* Inhalte der Dateien durchsuchen und ersetzen */
                 reportMessage.Invoke("Inhalte durchsuchen und ersetzen");
-                await TaskHelper.ToTask(() => _fileService.ReplaceInFiles(INTERNAL_PLACEHOLDER, newName, files));
+                await TaskHelper.ToTask(() => _fileService.ReplaceInFiles(INTERNAL_PLACEHOLDER, newName, files, extensions));
 
                 /* CopyTable erstellen */
                 reportMessage.Invoke("Neue Zielpfade erzeugen");
@@ -95,12 +94,12 @@ namespace TmplGen.Services {
         /// <param name="directory">Verzeichnispfad, aus dessen Inhalt ein Template erstellt werden soll</param>
         /// <param name="targetFilePath">Zieldateipfad für das gepackte Template</param>
         /// <param name="placeholder">Der in der Voröage zu suchende Platzhalter</param>
+        /// <param name="extensions"></param>
         /// <param name="reportMessage">Aktion zur Ausgabe einer Nachricht (keine Fehlerausgabe)</param>
         /// <param name="reportOverallItems">Aktion zur Ausgabe der Gesamtschritte des Prozesses</param>
         /// <param name="reportItemsDone">Aktion zur Ausgabe der abgeschlossenen Schritte des Prozesses</param>
         /// <param name="reportError">Aktion um Fehler auszugeben</param>
-        public async void CreateTemplateAsync(string directory, string targetFilePath, string placeholder,
-                Action<string> reportMessage,
+        public async void CreateTemplateAsync(string directory, string targetFilePath, string placeholder, IList<string> extensions, Action<string> reportMessage,
                 Action<int> reportOverallItems, Action<int> reportItemsDone, Action<string> reportError) {
             try {
                 /* Workspace anlegen */
@@ -135,7 +134,7 @@ namespace TmplGen.Services {
 
                 /* Inhalte der Dateien durchsuchen und ersetzen */
                 reportMessage.Invoke("In Dateininhalten suchenund ersetzen");
-                await TaskHelper.ToTask(() => _fileService.ReplaceInFiles(placeholder, INTERNAL_PLACEHOLDER, copyTable.Select(x => x.Value).ToList()));
+                await TaskHelper.ToTask(() => _fileService.ReplaceInFiles(placeholder, INTERNAL_PLACEHOLDER, copyTable.Select(x => x.Value).ToList(), extensions));
 
                 /* Kompletten Verzeichnisinhalt packen */
                 reportMessage.Invoke("Workspace packen und abspeichern");

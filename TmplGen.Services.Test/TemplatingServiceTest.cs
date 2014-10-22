@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TmplGen.Services.Test {
     [TestClass]
@@ -9,6 +11,7 @@ namespace TmplGen.Services.Test {
             service.CreateTemplateAsync("./Testdata",
                     "./template.zip",
                     "MyProject",
+                    new List<string>{"txt"}, 
                     ReportMessage,
                     ReportOverallItems,
                     ReportItemsDone,

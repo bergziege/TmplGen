@@ -1,5 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
+using De.BerndNet2000.TmplGen.Properties;
 using De.BerndNet2000.TmplGen.Ui.Common;
 using De.BerndNet2000.TmplGen.Ui.Common.ViewModels;
 
@@ -96,6 +99,7 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateTemplatePage.ViewModels {
             await TaskHelper.ToTask(() => _templatingService.CreateTemplateAsync(SourceFolder,
                     TargetFilePath,
                     OldProjectName,
+                    Settings.Default.FileExtensionWhitelist.Cast<string>().ToList(),
                     ReportMessage,
                     null,
                     null,
