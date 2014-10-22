@@ -72,11 +72,19 @@ namespace TmplGen.Services {
         /// <param name="placeholder"></param>
         /// <param name="internalPlaceholder"></param>
         /// <param name="files"></param>
-        public void ReplaceInFiles(string placeholder, string internalPlaceholder, IEnumerable<string> files ) {
+        /// <param name="extensions"></param>
+        public void ReplaceInFiles(string placeholder, string internalPlaceholder, IEnumerable<string> files, IList<string> extensions) {
             foreach (string file in files.Where(File.Exists)) {
-                string text = File.ReadAllText(file);
-                text = text.Replace(placeholder,internalPlaceholder);
-                File.WriteAllText(file, text);
+                string extension = Path.GetExtension(file);
+                if (extension != null && extension.StartsWith(".")) {
+                    extension = extension.TrimStart('.');
+                }
+                if (extensions.Contains(extension)) {
+                    string text = File.ReadAllText(file);
+                    text = text.Replace(placeholder, internalPlaceholder);
+                    File.WriteAllText(file, text);
+                }
+                
             }
         }
 

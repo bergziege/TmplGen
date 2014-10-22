@@ -1,4 +1,7 @@
-﻿using De.BerndNet2000.TmplGen.Ui.Common.ViewModels;
+﻿using System.Linq;
+
+using De.BerndNet2000.TmplGen.Properties;
+using De.BerndNet2000.TmplGen.Ui.Common.ViewModels;
 
 using FirstFloor.ModernUI.Presentation;
 
@@ -91,7 +94,7 @@ namespace De.BerndNet2000.TmplGen.Ui.CreateProjectPage.ViewModels {
             IsProcessing = true;
             await TaskHelper.ToTask(() => _templatingService.CreateProjectAsync(TemplateSourceFile,
                     ProjectTargetFolder,
-                    NewProjectName,
+                    NewProjectName, Settings.Default.FileExtensionWhitelist.Cast<string>().ToList(),
                     ReportMessage,
                     null,
                     null,
