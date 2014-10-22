@@ -116,7 +116,8 @@
     <Compile Include="Ui\Shell\ViewModels\ShellDesignViewModel.cs" />
     <Compile Include="Ui\Shell\ViewModels\ShellViewModel.cs" />
     <Compile Include="Ui\WhitelistPage\IWhitelistPageViewModel.cs" />
-    <Compile Include="Ui\WhitelistPage\ViewModels\WhitelistDesignViewModel.cs" />
+    <Compile Include="Ui\WhitelistPage\ViewModels\WhitelistPageDesignViewModel.cs" />
+    <Compile Include="Ui\WhitelistPage\ViewModels\WhitelistePageViewModel.cs" />
     <Compile Include="Ui\WhitelistPage\WhitelistPage.xaml.cs">
       <DependentUpon>WhitelistPage.xaml</DependentUpon>
     </Compile>

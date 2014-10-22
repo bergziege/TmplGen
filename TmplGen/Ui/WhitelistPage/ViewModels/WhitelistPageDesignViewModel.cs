@@ -8,7 +8,7 @@ namespace De.BerndNet2000.TmplGen.Ui.WhitelistPage.ViewModels {
     /// <summary>
     ///     Design view model for whitelist view.
     /// </summary>
-    public class WhitelistDesignViewModel : ReactiveObject, IWhitelistPageViewModel {
+    public class WhitelistPageDesignViewModel : ReactiveObject, IWhitelistPageViewModel {
         private RelayCommand _addNewExtensionCommand;
         private string _extensionInput;
         private ObservableCollection<string> _extensions;

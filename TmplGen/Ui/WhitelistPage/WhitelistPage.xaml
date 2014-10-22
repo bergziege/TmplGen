@@ -8,7 +8,7 @@
              d:DesignHeight="300"
              d:DesignWidth="300">
     <d:DesignProperties.DataContext>
-        <viewModels:WhitelistDesignViewModel />
+        <viewModels:WhitelistPageDesignViewModel />
     </d:DesignProperties.DataContext>
     <Grid Style="{StaticResource ContentRoot}">
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
                 Margin="3,3,3,10" />
 
         <TextBox Grid.Row="3"
-                 Text="{Binding Path=ExtensionInput}"
+                 Text="{Binding Path=ExtensionInput, UpdateSourceTrigger=PropertyChanged}"
                  Margin="3" />
 
         <Button Content="Hinzufügen"
