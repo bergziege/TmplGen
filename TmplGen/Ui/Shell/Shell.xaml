@@ -4,7 +4,8 @@
                   xmlns:Mui="http://firstfloorsoftware.com/ModernUI"
                   Title="Shell"
                   Height="600"
-                  Width="600">
+                  Width="600"
+                  SizeToContent="WidthAndHeight">
 
 
     <Mui:ModernWindow.MenuLinkGroups>
@@ -14,6 +15,8 @@
                           Source="/Ui\CreateTemplatePage\CreateTemplatePage.xaml" />
                 <Mui:Link DisplayName="Template -> Projekt"
                           Source="/Ui\CreateProjectPage\CreateProjectPage.xaml" />
+                <Mui:Link DisplayName="Whitelist"
+                          Source="/Ui\WhitelistPage\WhitelistPage.xaml" />
             </Mui:LinkGroup.Links>
         </Mui:LinkGroup>
     </Mui:ModernWindow.MenuLinkGroups>
